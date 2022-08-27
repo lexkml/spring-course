@@ -1,22 +1,13 @@
 package ru.lexkml.spring;
 
-import ru.lexkml.spring.ioc.Container;
-import ru.lexkml.spring.service.UserService;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import ru.lexkml.spring.database.pool.ConnectionPool;
 
 public class ApplicationRunner {
     public static void main(String[] args) {
-        var container = new Container();
+        var context = new ClassPathXmlApplicationContext("application.xml");
 
-//        var connectionPool = new ConnectionPool();
-//        var userRepository = new UserRepository(connectionPool);
-//        var companyRepository = new CompanyRepository(connectionPool);
-//        var userService = new UserService(userRepository, companyRepository);
-
-//        var connectionPool = container.get(ConnectionPool.class);
-//        var userRepository = container.get(UserRepository.class);
-//        var companyRepository = container.get(CompanyRepository.class);
-        var userService = container.get(UserService.class);
-        
-        System.out.println(userService + " is ready to use!");
+        var connectionPool1 = context.getBean("pool1", ConnectionPool.class);
+        System.out.println(connectionPool1);
     }
 }
