@@ -3,27 +3,59 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="someBean" class="java.lang.String">
-        <constructor-arg type="java.lang.String" value="This is a some value for bean String type"/>
+    <!--       Beans for Map<String, Object> in ConnectionPool        -->
+    <bean id="urlBean" class="java.net.URI">
+        <constructor-arg type="java.lang.String" value="jdbc:postgresql://localhost:5432/postgres"/>
+    </bean>
+    <bean id="usernameBean" class="java.lang.String">
+        <constructor-arg type="java.lang.String" value="postgresUser"/>
+    </bean>
+    <bean id="passwordBean" class="java.lang.String">
+        <constructor-arg type="java.lang.String" value="postgresPassword"/>
     </bean>
 
-    <bean id="pool" name="connectionPool" class="ru.lexkml.spring.database.pool.ConnectionPool">
-        <constructor-arg name="username" type="java.lang.String" value="Alexandr Kamelchukov"/>
-        <constructor-arg name="poolSize" type="java.lang.Integer" value="10"/>
+    <!--    Beans for List<Object> in ConnectionPool        -->
+    <bean id="argumentBean-1" class="java.lang.String">
+        <constructor-arg type="java.lang.String" value="argument-1"/>
+    </bean>
+    <bean id="argumentBean-2" class="java.lang.String">
+        <constructor-arg type="java.lang.String" value="argument-2"/>
+    </bean>
+    <bean id="argumentBean-3" class="java.lang.String">
+        <constructor-arg type="java.lang.String" value="argument-3"/>
+    </bean>
+
+    <bean id="poolSizeBean" class="java.lang.Integer">
+        <constructor-arg value="10"/>
+    </bean>
+
+    <bean id="userBean" class="java.lang.String">
+        <constructor-arg type="java.lang.String" value="Alexandr Kamelchukov"/>
+    </bean>
+
+    <bean id="connectionPoolBean" name="connectionPool" class="ru.lexkml.spring.database.pool.ConnectionPool">
+        <constructor-arg name="user" type="java.lang.String" ref="userBean"/>
+        <constructor-arg name="poolSize" type="java.lang.Integer" ref="poolSizeBean"/>
         <constructor-arg name="arguments" type="java.util.List">
             <list>
-                <value>argument-1</value>
-                <value>argument-2</value>
-                <value>argument-3</value>
+                <ref bean="argumentBean-1"/>
+                <ref bean="argumentBean-2"/>
+                <ref bean="argumentBean-3"/>
             </list>
         </constructor-arg>
         <constructor-arg name="properties" type="java.util.Map">
             <map>
-                <entry key="url" value="jdbc:postgresql://localhost:5432/postgres"/>
-                <entry key="username" value="some-user"/>
-                <entry key="password" value="some-password"/>
+                <entry key="url" value-ref="urlBean"/>
+                <entry key="username" value-ref="usernameBean"/>
+                <entry key="password" value-ref="passwordBean"/>
             </map>
         </constructor-arg>
+    </bean>
+
+    <!--    Creating companyRepository bean via factory-method      -->
+    <bean id="companyRepository" class="ru.lexkml.spring.database.repository.CompanyRepository" factory-method="of">
+        <constructor-arg name="connectionPool" type="ru.lexkml.spring.database.pool.ConnectionPool"
+                         ref="connectionPoolBean"/>
     </bean>
 
 </beans>
