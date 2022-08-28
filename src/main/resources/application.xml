@@ -33,7 +33,10 @@
         <constructor-arg type="java.lang.String" value="Alexandr Kamelchukov"/>
     </bean>
 
-    <bean id="connectionPoolBean" name="connectionPool" class="ru.lexkml.spring.database.pool.ConnectionPool" scope="prototype">
+    <bean id="connectionPoolBean" name="connectionPool" class="ru.lexkml.spring.database.pool.ConnectionPool"
+          init-method="init"
+          destroy-method="destroy">
+
         <constructor-arg name="user" type="java.lang.String" ref="userBean"/>
         <constructor-arg name="poolSize" type="java.lang.Integer" ref="poolSizeBean"/>
         <constructor-arg name="arguments" type="java.util.List">

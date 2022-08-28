@@ -15,4 +15,12 @@ public class ConnectionPool {
         this.arguments = arguments;
         this.properties = properties;
     }
+
+    private void init() {
+        System.out.println("Initialization connection pool in initialization method");
+    }
+
+    private void destroy() {
+        System.out.println("Clean connection pool in destroy method");
+    }
 }
