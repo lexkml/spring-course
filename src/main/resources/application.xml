@@ -15,6 +15,10 @@
     <!--    The same thing      -->
     <context:property-placeholder location="application.properties"/>
 
+    <!--    <bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor"/>-->
+    <!--    The same thing      -->
+    <context:annotation-config/>
+
     <!--    We don't specify beans id, because we don't use these beans. They need only for initialization other beans.     -->
     <bean class="ru.lexkml.spring.bfpp.LogBeanFactoryPostProcessor"/>
     <bean class="ru.lexkml.spring.bfpp.VerifyPropertyBeanFactoryPostProcessor"/>
@@ -49,9 +53,7 @@
         <constructor-arg type="java.lang.String" value="${db.user}"/>
     </bean>
 
-    <bean id="connectionPoolBean" name="connectionPool" class="ru.lexkml.spring.database.pool.ConnectionPool"
-          init-method="init"
-          destroy-method="destroy">
+    <bean id="connectionPoolBean" name="connectionPool" class="ru.lexkml.spring.database.pool.ConnectionPool">
 
         <constructor-arg name="user" type="java.lang.String" ref="userBean"/>
         <constructor-arg name="poolSize" type="java.lang.Integer" ref="poolSizeBean"/>
