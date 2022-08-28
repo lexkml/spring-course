@@ -3,7 +3,27 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="pool1" name="connectionPool1" class="ru.lexkml.spring.database.pool.ConnectionPool"/>
-    <bean id="pool2" name="connectionPool2" class="ru.lexkml.spring.database.pool.ConnectionPool"/>
+    <bean id="someBean" class="java.lang.String">
+        <constructor-arg type="java.lang.String" value="This is a some value for bean String type"/>
+    </bean>
+
+    <bean id="pool" name="connectionPool" class="ru.lexkml.spring.database.pool.ConnectionPool">
+        <constructor-arg name="username" type="java.lang.String" value="Alexandr Kamelchukov"/>
+        <constructor-arg name="poolSize" type="java.lang.Integer" value="10"/>
+        <constructor-arg name="arguments" type="java.util.List">
+            <list>
+                <value>argument-1</value>
+                <value>argument-2</value>
+                <value>argument-3</value>
+            </list>
+        </constructor-arg>
+        <constructor-arg name="properties" type="java.util.Map">
+            <map>
+                <entry key="url" value="jdbc:postgresql://localhost:5432/postgres"/>
+                <entry key="username" value="some-user"/>
+                <entry key="password" value="some-password"/>
+            </map>
+        </constructor-arg>
+    </bean>
 
 </beans>
