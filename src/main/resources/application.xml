@@ -12,8 +12,12 @@
     <!--    <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">-->
     <!--        <property name="location" value="application.properties"/>-->
     <!--    </bean>-->
-    <!--    The same thing -->
+    <!--    The same thing      -->
     <context:property-placeholder location="application.properties"/>
+
+    <!--    We don't specify beans id, because we don't use these beans. They need only for initialization other beans.     -->
+    <bean class="ru.lexkml.spring.bfpp.LogBeanFactoryPostProcessor"/>
+    <bean class="ru.lexkml.spring.bfpp.VerifyPropertyBeanFactoryPostProcessor"/>
 
     <!--       Beans for Map<String, Object> in ConnectionPool        -->
     <bean id="urlBean" class="java.net.URI">
