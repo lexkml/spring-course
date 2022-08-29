@@ -19,6 +19,10 @@
     <!--    The same thing      -->
     <context:annotation-config/>
 
+    <bean class="ru.lexkml.spring.bpp.InjectBeanPostProcessor"/>
+    <bean class="ru.lexkml.spring.bpp.TransactionBeanPostProcessor"/>
+    <bean class="ru.lexkml.spring.bpp.AuditingBeanPostProcessor"/>
+
     <!--    We don't specify beans id, because we don't use these beans. They need only for initialization other beans.     -->
     <bean class="ru.lexkml.spring.bfpp.LogBeanFactoryPostProcessor"/>
     <bean class="ru.lexkml.spring.bfpp.VerifyPropertyBeanFactoryPostProcessor"/>
@@ -73,10 +77,6 @@
         </constructor-arg>
     </bean>
 
-    <!--    Creating companyRepository bean via factory-method      -->
-    <bean id="companyRepository" class="ru.lexkml.spring.database.repository.CompanyRepository" factory-method="of">
-        <constructor-arg name="connectionPool" type="ru.lexkml.spring.database.pool.ConnectionPool"
-                         ref="connectionPoolBean"/>
-    </bean>
+    <bean id="companyRepository" class="ru.lexkml.spring.database.repository.CompanyRepository"/>
 
 </beans>
