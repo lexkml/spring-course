@@ -57,8 +57,8 @@
         <constructor-arg type="java.lang.String" value="${db.user}"/>
     </bean>
 
-    <bean id="connectionPoolBean" name="connectionPool" class="ru.lexkml.spring.database.pool.ConnectionPool">
-
+    <bean id="connectionPoolBean" class="ru.lexkml.spring.database.pool.ConnectionPool"/>
+    <bean id="connectionPoolBean2" class="ru.lexkml.spring.database.pool.ConnectionPool">
         <constructor-arg name="user" type="java.lang.String" ref="userBean"/>
         <constructor-arg name="poolSize" type="java.lang.Integer" ref="poolSizeBean"/>
         <constructor-arg name="arguments" type="java.util.List">

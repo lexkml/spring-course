@@ -7,10 +7,13 @@ import java.util.List;
 import java.util.Map;
 
 public class ConnectionPool {
-    private final String user;
-    private final Integer poolSize;
-    private final List<Object> arguments;
-    private final Map<String, Object> properties;
+    private String user;
+    private Integer poolSize;
+    private List<Object> arguments;
+    private Map<String, Object> properties;
+
+    public ConnectionPool() {
+    }
 
     public ConnectionPool(String user, Integer poolSize, List<Object> arguments, Map<String, Object> properties) {
         this.user = user;

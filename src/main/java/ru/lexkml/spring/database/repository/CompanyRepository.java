@@ -1,20 +1,26 @@
 package ru.lexkml.spring.database.repository;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import ru.lexkml.spring.annotation.Auditing;
-import ru.lexkml.spring.annotation.InjectBean;
 import ru.lexkml.spring.annotation.Transaction;
 import ru.lexkml.spring.database.entity.Company;
 import ru.lexkml.spring.database.pool.ConnectionPool;
 
 import javax.annotation.PostConstruct;
+import java.util.List;
 import java.util.Optional;
 
 @Transaction
 @Auditing
 public class CompanyRepository implements CrudRepository<Integer, Company> {
 
-    @InjectBean
-    private ConnectionPool connectionPool;
+    @Autowired
+    private ConnectionPool connectionPoolBean2;
+    @Autowired
+    private List<ConnectionPool> pools;
+    @Value("${db.poolSize}")
+    private Integer poolSize;
 
     @PostConstruct
     private void init() {
