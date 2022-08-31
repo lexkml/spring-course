@@ -1,7 +1,7 @@
 package ru.lexkml.spring.database.repository;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Repository;
 import ru.lexkml.spring.annotation.Auditing;
 import ru.lexkml.spring.annotation.Transaction;
 import ru.lexkml.spring.database.entity.Company;
@@ -11,16 +11,22 @@ import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 @Transaction
 @Auditing
 public class CompanyRepository implements CrudRepository<Integer, Company> {
 
-    @Autowired
-    private ConnectionPool connectionPoolBean2;
-    @Autowired
-    private List<ConnectionPool> pools;
-    @Value("${db.poolSize}")
-    private Integer poolSize;
+    private final ConnectionPool pool1;
+    private final List<ConnectionPool> pools;
+    private final Integer poolSize;
+
+    public CompanyRepository(ConnectionPool pool1,
+                             List<ConnectionPool> pools,
+                             @Value("${db.poolSize}") Integer poolSize) {
+        this.pool1 = pool1;
+        this.pools = pools;
+        this.poolSize = poolSize;
+    }
 
     @PostConstruct
     private void init() {

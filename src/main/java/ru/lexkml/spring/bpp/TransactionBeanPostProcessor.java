@@ -2,12 +2,14 @@ package ru.lexkml.spring.bpp;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.stereotype.Component;
 import ru.lexkml.spring.annotation.Transaction;
 
 import java.lang.reflect.Proxy;
 import java.util.HashMap;
 import java.util.Map;
 
+@Component
 public class TransactionBeanPostProcessor implements BeanPostProcessor {
 
     private Map<String, Class<?>> transactionBeans = new HashMap<>();
