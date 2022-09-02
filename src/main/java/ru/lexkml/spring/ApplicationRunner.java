@@ -7,7 +7,9 @@ public class ApplicationRunner {
     public static void main(String[] args) {
         try (var context = new ClassPathXmlApplicationContext("application.xml")) {
             var companyRepository = context.getBean("companyRepository", CrudRepository.class);
-            System.out.println(companyRepository.findById(1));
+            var maybeCompany = companyRepository.findById(1);
+
+            System.out.println(maybeCompany);
         }
     }
 }
