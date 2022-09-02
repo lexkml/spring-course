@@ -9,15 +9,13 @@
        http://www.springframework.org/schema/context/spring-context-4.0.xsd
        ">
 
-    <!--    <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">-->
-    <!--        <property name="location" value="application.properties"/>-->
-    <!--    </bean>-->
-    <!--    The same thing      -->
     <context:property-placeholder location="application.properties"/>
-
-    <!--    We don't specify beans id, because we don't use these beans. They need only for initialization other beans.     -->
-    <bean class="ru.lexkml.spring.bfpp.LogBeanFactoryPostProcessor"/>
-    <bean class="ru.lexkml.spring.bfpp.VerifyPropertyBeanFactoryPostProcessor"/>
+    <context:component-scan base-package="ru.lexkml.spring"
+                            annotation-config="true"
+                            resource-pattern="**/*.class"
+                            scoped-proxy="no"
+                            use-default-filters="true"
+    />
 
     <!--       Beans for Map<String, Object> in ConnectionPool        -->
     <bean id="urlBean" class="java.net.URI">
@@ -49,32 +47,23 @@
         <constructor-arg type="java.lang.String" value="${db.user}"/>
     </bean>
 
-    <bean id="connectionPoolBean" name="connectionPool" class="ru.lexkml.spring.database.pool.ConnectionPool"
-          init-method="init"
-          destroy-method="destroy">
-
-        <constructor-arg name="user" type="java.lang.String" ref="userBean"/>
-        <constructor-arg name="poolSize" type="java.lang.Integer" ref="poolSizeBean"/>
-        <constructor-arg name="arguments" type="java.util.List">
-            <list>
-                <ref bean="argumentBean-1"/>
-                <ref bean="argumentBean-2"/>
-                <ref bean="argumentBean-3"/>
-            </list>
-        </constructor-arg>
-        <constructor-arg name="properties" type="java.util.Map">
-            <map>
-                <entry key="url" value-ref="urlBean"/>
-                <entry key="username" value-ref="usernameBean"/>
-                <entry key="password" value-ref="passwordBean"/>
-            </map>
-        </constructor-arg>
-    </bean>
-
-    <!--    Creating companyRepository bean via factory-method      -->
-    <bean id="companyRepository" class="ru.lexkml.spring.database.repository.CompanyRepository" factory-method="of">
-        <constructor-arg name="connectionPool" type="ru.lexkml.spring.database.pool.ConnectionPool"
-                         ref="connectionPoolBean"/>
-    </bean>
+<!--    <bean id="connectionPoolBean" class="ru.lexkml.spring.database.pool.ConnectionPool">-->
+<!--        <constructor-arg name="user" type="java.lang.String" ref="userBean"/>-->
+<!--        <constructor-arg name="poolSize" type="java.lang.Integer" ref="poolSizeBean"/>-->
+<!--        <constructor-arg name="arguments" type="java.util.List">-->
+<!--            <list>-->
+<!--                <ref bean="argumentBean-1"/>-->
+<!--                <ref bean="argumentBean-2"/>-->
+<!--                <ref bean="argumentBean-3"/>-->
+<!--            </list>-->
+<!--        </constructor-arg>-->
+<!--        <constructor-arg name="properties" type="java.util.Map">-->
+<!--            <map>-->
+<!--                <entry key="url" value-ref="urlBean"/>-->
+<!--                <entry key="username" value-ref="usernameBean"/>-->
+<!--                <entry key="password" value-ref="passwordBean"/>-->
+<!--            </map>-->
+<!--        </constructor-arg>-->
+<!--    </bean>-->
 
 </beans>
