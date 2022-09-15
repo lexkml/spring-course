@@ -13,7 +13,7 @@ public class ApplicationRunner {
             var maybeCompany = companyRepository.findById(1);
 
             var userRepository = context.getBean("userRepository", UserRepository.class);
-            var userRepository2 = context.getBean("userRepository2", UserRepository.class);
+//            var userRepository2 = context.getBean("userRepository2", UserRepository.class);
             var connectionPool = context.getBean("connectionPool", ConnectionPool.class);
 
             System.out.println(maybeCompany);
