@@ -9,13 +9,13 @@
        http://www.springframework.org/schema/context/spring-context-4.0.xsd
        ">
 
-    <context:property-placeholder location="application.properties"/>
-    <context:component-scan base-package="ru.lexkml.spring"
-                            annotation-config="true"
-                            resource-pattern="**/*.class"
-                            scoped-proxy="no"
-                            use-default-filters="true"
-    />
+<!--    <context:property-placeholder location="application.properties"/>-->
+<!--    <context:component-scan base-package="ru.lexkml.spring"-->
+<!--                            annotation-config="true"-->
+<!--                            resource-pattern="**/*.class"-->
+<!--                            scoped-proxy="no"-->
+<!--                            use-default-filters="true"-->
+<!--    />-->
 
     <!--       Beans for Map<String, Object> in ConnectionPool        -->
     <bean id="urlBean" class="java.net.URI">
