@@ -18,9 +18,9 @@
 <!--    />-->
 
     <!--       Beans for Map<String, Object> in ConnectionPool        -->
-    <bean id="urlBean" class="java.net.URI">
-        <constructor-arg type="java.lang.String" value="${db.url}"/>
-    </bean>
+<!--    <bean id="urlBean" class="java.net.URI">-->
+<!--        <constructor-arg type="java.lang.String" value="${db.url}"/>-->
+<!--    </bean>-->
     <bean id="usernameBean" class="java.lang.String">
         <constructor-arg type="java.lang.String" value="${db.username}"/>
     </bean>
