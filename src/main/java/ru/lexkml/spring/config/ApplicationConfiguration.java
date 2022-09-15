@@ -31,7 +31,17 @@ public class ApplicationConfiguration {
     }
 
     @Bean
+    public ConnectionPool connectionPoo2() {
+        return new ConnectionPool("test-pool", 150);
+    }
+
+    @Bean
     public UserRepository userRepository(ConnectionPool connectionPool) {
         return new UserRepository(connectionPool);
+    }
+
+    @Bean
+    public UserRepository userRepository2() {
+        return new UserRepository(connectionPoo2());
     }
 }
