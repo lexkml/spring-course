@@ -39,13 +39,13 @@
         <constructor-arg type="java.lang.String" value="argument-3"/>
     </bean>
 
-    <bean id="poolSizeBean" class="java.lang.Integer">
-        <constructor-arg value="${db.poolSize}"/>
-    </bean>
+<!--    <bean id="poolSizeBean" class="java.lang.Integer">-->
+<!--        <constructor-arg value="${db.poolSize}"/>-->
+<!--    </bean>-->
 
-    <bean id="userBean" class="java.lang.String">
-        <constructor-arg type="java.lang.String" value="${db.user}"/>
-    </bean>
+<!--    <bean id="userBean" class="java.lang.String">-->
+<!--        <constructor-arg type="java.lang.String" value="${db.user}"/>-->
+<!--    </bean>-->
 
 <!--    <bean id="connectionPoolBean" class="ru.lexkml.spring.database.pool.ConnectionPool">-->
 <!--        <constructor-arg name="user" type="java.lang.String" ref="userBean"/>-->

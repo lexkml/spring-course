@@ -2,6 +2,8 @@ package ru.lexkml.spring.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
+import ru.lexkml.spring.database.pool.ConnectionPool;
+import ru.lexkml.spring.database.repository.UserRepository;
 import web.config.WebConfiguration;
 
 import java.net.URI;
@@ -14,15 +16,22 @@ import java.net.URISyntaxException;
 @Import(WebConfiguration.class)
 public class ApplicationConfiguration {
 
-    @Value("${db.url}")
-    private String dbUrl;
-
-    @Bean
-    public URI uri() {
+    @Bean()
+    public URI uri(@Value("${db.url}") String dbUrl) {
         try {
             return new URI(dbUrl);
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Bean
+    public ConnectionPool connectionPool(@Value("${db.user}") String user, @Value("${db.poolSize}") Integer poolSize) {
+        return new ConnectionPool(user, poolSize);
+    }
+
+    @Bean
+    public UserRepository userRepository(ConnectionPool connectionPool) {
+        return new UserRepository(connectionPool);
     }
 }
