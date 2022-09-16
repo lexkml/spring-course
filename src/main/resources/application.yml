@@ -1,0 +1,6 @@
+db:
+  user: Alexandr Kamelchukov
+  username: postgres
+  password: password
+  poolSize: 10
+  url: jdbc:postgresql://localhost:5432/postgres
