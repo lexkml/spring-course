@@ -1,18 +1,11 @@
 package ru.lexkml.spring;
 
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import ru.lexkml.spring.config.ApplicationConfiguration;
-import ru.lexkml.spring.service.CompanyService;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+@SpringBootApplication
 public class ApplicationRunner {
     public static void main(String[] args) {
-        try (var context = new AnnotationConfigApplicationContext(ApplicationConfiguration.class)) {
-
-            var companyService = context.getBean(CompanyService.class);
-
-            companyService.findById(1);
-
-            System.out.println();
-        }
+        SpringApplication.run(ApplicationRunner.class, args);
     }
 }

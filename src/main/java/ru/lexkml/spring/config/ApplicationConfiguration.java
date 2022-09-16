@@ -3,7 +3,6 @@ package ru.lexkml.spring.config;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
 import ru.lexkml.spring.database.pool.ConnectionPool;
-import ru.lexkml.spring.database.repository.UserRepository;
 import web.config.WebConfiguration;
 
 import java.net.URI;
@@ -33,16 +32,5 @@ public class ApplicationConfiguration {
     @Bean
     public ConnectionPool connectionPoo2() {
         return new ConnectionPool("test-pool", 150);
-    }
-
-    @Bean
-    public UserRepository userRepository(ConnectionPool connectionPool) {
-        return new UserRepository(connectionPool);
-    }
-
-    @Bean
-    @Profile("prod|web")
-    public UserRepository userRepository2() {
-        return new UserRepository(connectionPoo2());
     }
 }
