@@ -2,5 +2,14 @@ db:
   user: Alexandr Kamelchukov
   username: postgres
   password: password
-  poolSize: 10
   url: jdbc:postgresql://localhost:5432/postgres
+  poolSize: 10
+  pools:
+    - size: 1
+      timeout: 1
+    - size: 2
+      timeout: 2
+    - size: 3
+      timeout: 3
+
+
