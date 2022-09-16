@@ -1,6 +1,7 @@
 package ru.lexkml.spring.database.pool;
 
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -8,15 +9,13 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
 @Component("pool1")
+@RequiredArgsConstructor
 public class ConnectionPool {
-    private final String user;
-    private final Integer poolSize;
 
-    public ConnectionPool(@Value("${db.user}") String user,
-                          @Value("${db.poolSize}") Integer poolSize) {
-        this.user = user;
-        this.poolSize = poolSize;
-    }
+    @Value("${db.user}")
+    private final String user;
+    @Value("${db.poolSize}")
+    private final Integer poolSize;
 
     @PostConstruct
     private void init() {
