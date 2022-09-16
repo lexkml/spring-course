@@ -9,9 +9,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 @Configuration
-@PropertySource("classpath:application.properties")
-@ComponentScan(basePackages = "ru.lexkml.spring")
-//@ImportResource("classpath:application.xml")
 @Import(WebConfiguration.class)
 public class ApplicationConfiguration {
 
