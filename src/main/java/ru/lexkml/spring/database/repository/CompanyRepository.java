@@ -1,5 +1,6 @@
 package ru.lexkml.spring.database.repository;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
@@ -17,19 +18,14 @@ import java.util.Optional;
 @Repository
 @Transaction
 @Auditing
+@RequiredArgsConstructor
 public class CompanyRepository implements CrudRepository<Integer, Company> {
+
+    @Value("${db.poolSize}")
+    private final Integer poolSize;
 
     private final ConnectionPool pool1;
     private final List<ConnectionPool> pools;
-    private final Integer poolSize;
-
-    public CompanyRepository(ConnectionPool pool1,
-                             List<ConnectionPool> pools,
-                             @Value("${db.poolSize}") Integer poolSize) {
-        this.pool1 = pool1;
-        this.pools = pools;
-        this.poolSize = poolSize;
-    }
 
     @PostConstruct
     private void init() {
