@@ -12,7 +12,22 @@ db:
     - size: 3
       timeout: 3
 logging:
+  level:
+    root: info
   file:
     name: lexkml.log
     path: /
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        hbm2ddl.auto: validate
 
