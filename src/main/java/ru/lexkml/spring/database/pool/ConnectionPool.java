@@ -2,6 +2,7 @@ package ru.lexkml.spring.database.pool;
 
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -10,6 +11,7 @@ import javax.annotation.PreDestroy;
 
 @Component("pool1")
 @RequiredArgsConstructor
+@Slf4j
 public class ConnectionPool {
 
     @Value("${db.user}")
@@ -19,11 +21,11 @@ public class ConnectionPool {
 
     @PostConstruct
     private void init() {
-        System.out.println("Initialization connection pool in initialization method");
+        log.info("Initialization connection pool in initialization method");
     }
 
     @PreDestroy
     private void destroy() {
-        System.out.println("Clean connection pool in destroy method");
+        log.info("Clean connection pool in destroy method");
     }
 }

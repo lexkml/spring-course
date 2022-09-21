@@ -1,6 +1,7 @@
 package ru.lexkml.spring.database.repository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
@@ -19,6 +20,7 @@ import java.util.Optional;
 @Transaction
 @Auditing
 @RequiredArgsConstructor
+@Slf4j
 public class CompanyRepository implements CrudRepository<Integer, Company> {
 
     @Value("${db.poolSize}")
@@ -29,17 +31,17 @@ public class CompanyRepository implements CrudRepository<Integer, Company> {
 
     @PostConstruct
     private void init() {
-        System.out.println("Init company repository");
+        log.info("Init company repository");
     }
 
     @Override
     public Optional<Company> findById(Integer id) {
-        System.out.println("Find by id method");
+        log.info("Find by id method");
         return Optional.of(new Company(id));
     }
 
     @Override
     public void delete(Company entity) {
-        System.out.println("Delete method");
+        log.info("Delete method");
     }
 }
