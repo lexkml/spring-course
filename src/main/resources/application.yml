@@ -12,7 +12,7 @@ db:
     - size: 3
       timeout: 3
 logging:
-  level:
-    root: WARN
-    ru.lexkml.spring.database: INFO
+  file:
+    name: lexkml.log
+    path: /
 
