@@ -3,6 +3,7 @@ package ru.lexkml.spring.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.lexkml.spring.database.entity.Company;
 import ru.lexkml.spring.database.repository.CrudRepository;
 import ru.lexkml.spring.dto.CompanyReadDto;
@@ -18,7 +19,7 @@ public class CompanyService {
     private final UserService userService;
     private final ApplicationEventPublisher eventPublisher;
 
-
+    @Transactional
     public Optional<CompanyReadDto> findById(Integer id) {
         return companyRepository.findById(id)
                 .map(company -> {
