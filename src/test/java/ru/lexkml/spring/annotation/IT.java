@@ -3,6 +3,7 @@ package ru.lexkml.spring.annotation;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestConstructor;
+import org.springframework.transaction.annotation.Transactional;
 import ru.lexkml.spring.TestApplicationRunner;
 
 import java.lang.annotation.ElementType;
@@ -15,5 +16,6 @@ import java.lang.annotation.Target;
 @SpringBootTest(classes = TestApplicationRunner.class)
 @ActiveProfiles("test")
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
+@Transactional
 public @interface IT {
 }

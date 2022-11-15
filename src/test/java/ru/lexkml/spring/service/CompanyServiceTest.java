@@ -7,7 +7,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.ApplicationEventPublisher;
 import ru.lexkml.spring.database.entity.Company;
-import ru.lexkml.spring.database.repository.CrudRepository;
+import ru.lexkml.spring.database.repository.CompanyRepository;
 import ru.lexkml.spring.dto.CompanyReadDto;
 
 import java.util.Collections;
@@ -22,7 +22,7 @@ class CompanyServiceTest {
     private static final Integer COMPANY_ID = 1;
 
     @Mock
-    private CrudRepository<Integer, Company> companyRepository;
+    private CompanyRepository companyRepository;
     @Mock
     private UserService userService;
     @Mock
