@@ -10,8 +10,7 @@ import javax.persistence.EntityManager;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @IT
 @RequiredArgsConstructor
@@ -20,6 +19,17 @@ class CompanyRepositoryTest {
     private final EntityManager entityManager;
     private final CompanyRepository companyRepository;
 
+
+    @Test
+    void findByName() {
+        var maybeCompany = companyRepository.findByName("Apple");
+        assertTrue(maybeCompany.isPresent());
+    }
+    @Test
+    void findByNameContainingIgnoreCase() {
+        var companies = companyRepository.findByNameContainingIgnoreCase("pp");
+        assertFalse(companies.isEmpty());
+    }
 
     @Test
     void delete() {
