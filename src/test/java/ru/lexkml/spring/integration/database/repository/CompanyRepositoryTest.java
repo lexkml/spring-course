@@ -22,7 +22,7 @@ class CompanyRepositoryTest {
 
     @Test
     void findByName() {
-        var maybeCompany = companyRepository.findByName("Apple");
+        var maybeCompany = companyRepository.findByName("apple");
         assertTrue(maybeCompany.isPresent());
     }
     @Test
