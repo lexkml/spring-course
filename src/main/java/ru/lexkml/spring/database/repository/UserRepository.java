@@ -1,15 +1,20 @@
 package ru.lexkml.spring.database.repository;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.context.annotation.Scope;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import ru.lexkml.spring.database.pool.ConnectionPool;
+import ru.lexkml.spring.database.entity.User;
+
+import java.util.List;
 
 @Repository
-@Scope(BeanDefinition.SCOPE_PROTOTYPE)
-@RequiredArgsConstructor
-public class UserRepository {
+public interface UserRepository extends JpaRepository<User, Long> {
 
-    private final ConnectionPool connectionPool;
+    @Query("select u from User u where u.firstname like %:firstname% and u.lastname like %:lastname%")
+    List<User> findAllBy(String firstname, String lastname);
+
+    @Query(value ="SELECT * FROM users u WHERE u.username = :username",
+            nativeQuery = true
+    )
+    List<User> findAllByUsername(String username);
 }
