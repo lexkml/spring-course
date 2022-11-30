@@ -1,5 +1,6 @@
 package ru.lexkml.spring.database.repository;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -35,5 +36,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findTopByOrderByIdDesc();
     List<User> findTop3ByBirthDateBefore(LocalDate birthDate, Sort sort);
 
-    List<User> findAllBy(Pageable pageable);
+    @Query(value = "select u from User u", countQuery = "select count(distinct u.firstname) from User u")
+    Page<User> findAllBy(Pageable pageable);
 }
