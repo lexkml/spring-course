@@ -8,6 +8,7 @@ import ru.lexkml.spring.annotation.IT;
 import ru.lexkml.spring.database.entity.Role;
 import ru.lexkml.spring.database.entity.User;
 import ru.lexkml.spring.database.repository.UserRepository;
+import ru.lexkml.spring.dto.UserFilter;
 
 import java.time.LocalDate;
 
@@ -19,6 +20,15 @@ import static org.junit.jupiter.api.Assertions.*;
 class UserRepositoryTest {
 
     private final UserRepository userRepository;
+
+    @Test
+    void checkCustomImplementation() {
+        var userFilter = new UserFilter(
+                null, "%ov%", LocalDate.now()
+        );
+        var users = userRepository.findAllByFilter(userFilter);
+        assertThat(users).hasSize(4);
+    }
 
     @Test
     void checkProjections() {
