@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.test.annotation.Commit;
 import ru.lexkml.spring.annotation.IT;
 import ru.lexkml.spring.database.entity.Role;
 import ru.lexkml.spring.database.entity.User;
@@ -20,6 +21,17 @@ import static org.junit.jupiter.api.Assertions.*;
 class UserRepositoryTest {
 
     private final UserRepository userRepository;
+
+    @Test
+    @Commit
+    void checkAuditingWithCommit() {
+        var ivan = userRepository.findById(1L).get();
+        ivan.setBirthDate(ivan.getBirthDate().plusYears(1));
+        userRepository.flush();
+
+        var revisions = userRepository.findRevisions(1L);
+        assertThat(revisions).hasSize(1);
+    }
 
     @Test
     void checkAuditing() {
