@@ -1,17 +1,11 @@
 db:
-  user: Alexandr Kamelchukov
   username: test
   password: test
 
 spring:
   datasource:
-    url: jdbc:h2:mem:test
-    username:
-    password:
-    driver-class-name: org.h2.Driver
+    username: test
+    password: test
   jpa:
-    properties:
-      hibernate:
-        hbm2ddl.auto: update
-
-
+    properties.hibernate:
+      hbm2ddl.auto: update
