@@ -31,7 +31,7 @@ public class UserController {
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
+//    @ResponseStatus(HttpStatus.CREATED)
     public String create(UserCreateEditDto dto) {
         return "redirect:/users/" + userService.create(dto).getId();
     }
