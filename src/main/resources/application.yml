@@ -1,9 +1,16 @@
 db:
-  user: Alexandr Kamelchukov
-  username: postgres
-  password: password
-  url: jdbc:postgresql://localhost:5432/postgres
-  poolSize: 10
+  username: ${username.value:postgres}
+  password: pass
+  driver: PostgresDriver
+  url: postgres:5432
+  hosts: localhost,127.0.0.1
+  properties:
+    first: 123
+    second: 567
+    third.value: Third
+  pool:
+    size: 12
+    timeout: 10
   pools:
     - size: 1
       timeout: 1
@@ -11,23 +18,27 @@ db:
       timeout: 2
     - size: 3
       timeout: 3
+
+spring.profiles.active: qa
+
 logging:
   level:
-    root: info
+    root: INFO
+    com.dmdev.spring.database.pool: INFO
+    org.springframework.jdbc.core: TRACE
   file:
-    name: lexkml.log
+    name: dmdev.log
     path: /
-
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
+    url: jdbc:postgresql://localhost:5433/postgres
     username: postgres
-    password: postgres
+    password: pass
     driver-class-name: org.postgresql.Driver
   jpa:
-    properties:
-      hibernate:
-        show_sql: true
-        format_sql: true
-        hbm2ddl.auto: validate
-
+    properties.hibernate:
+      batch_size: 50
+      fetch_size: 50
+      show_sql: true
+      format_sql: true
+      hbm2ddl.auto: validate

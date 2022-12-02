@@ -1,9 +1,9 @@
 package ru.lexkml.spring.service;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 import ru.lexkml.spring.database.repository.CompanyRepository;
 import ru.lexkml.spring.database.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor

@@ -1,22 +1,22 @@
 package ru.lexkml.spring.config;
 
+import ru.lexkml.spring.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.envers.repository.config.EnableEnversRepositories;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
-import ru.lexkml.spring.ApplicationRunner;
 
 import java.util.Optional;
 
-@Configuration
-@EnableEnversRepositories(basePackageClasses = ApplicationRunner.class)
 @EnableJpaAuditing
+@EnableEnversRepositories(basePackageClasses = ApplicationRunner.class)
+@Configuration
 public class AuditConfiguration {
 
     @Bean
     public AuditorAware<String> auditorAware() {
-        // SecurityContext.getCurrentUser().getEmail();
-        return () -> Optional.of("Alexandr");
+        // SecurityContext.getCurrentUser().getEmail()
+        return () -> Optional.of("dmdev");
     }
 }

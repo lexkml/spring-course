@@ -1,15 +1,21 @@
 plugins {
-    id 'java'
     id 'org.springframework.boot' version '2.6.2'
-    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
-    id "io.freefair.lombok" version "6.5.1"
+    id "io.spring.dependency-management" version '1.0.11.RELEASE'
+    id "io.freefair.lombok" version "6.3.0"
+    id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
+    id 'java'
 }
+apply from: 'version.gradle'
 
-group 'ru.lexkml'
+group 'org.example'
 version '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
+}
+
+configurations {
+    querydsl.extendsFrom annotationProcessor, implementation, compilyOnly, runtimeOnly
 }
 
 dependencies {
@@ -17,8 +23,22 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.postgresql:postgresql'
     implementation 'org.springframework.data:spring-data-envers'
+    implementation 'com.querydsl:querydsl-jpa'
+
+    annotationProcessor 'com.querydsl:querydsl-apt'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation "org.testcontainers:postgresql:${versions.testcontainers}"
+}
+
+querydsl {
+    jpa = true
+    library = "com.querydsl:querydsl-apt:${versions.querydsl}"
+    querydslSourcesDir = "$buildDir/generated/sources/annotationProcessor/java/main"
+}
+
+compileQuerydsl {
+    options.annotationProcessorPath = configurations.querydsl
 }
 
 test {
@@ -26,5 +46,5 @@ test {
 }
 
 wrapper {
-    gradleVersion '7.5'
+    gradleVersion '7.3'
 }

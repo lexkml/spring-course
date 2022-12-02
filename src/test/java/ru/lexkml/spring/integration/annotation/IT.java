@@ -1,11 +1,10 @@
-package ru.lexkml.spring.annotation;
+package ru.lexkml.spring.integration.annotation;
 
-import ru.lexkml.spring.TestApplicationRunner;
+import ru.lexkml.spring.integration.TestApplicationRunner;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.TestConstructor;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -13,9 +12,8 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@SpringBootTest(classes = TestApplicationRunner.class)
 @ActiveProfiles("test")
-@TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
 @Transactional
+@SpringBootTest(classes = TestApplicationRunner.class)
 public @interface IT {
 }

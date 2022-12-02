@@ -5,7 +5,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Data
 @NoArgsConstructor
@@ -29,11 +36,23 @@ public class UserChat implements BaseEntity<Long> {
 
     public void setUser(User user) {
         this.user = user;
-        this.user.getUserChatList().add(this);
+        this.user.getUserChats().add(this);
     }
 
     public void setChat(Chat chat) {
         this.chat = chat;
-        this.chat.getUserChatList().add(this);
+        this.chat.getUserChats().add(this);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+

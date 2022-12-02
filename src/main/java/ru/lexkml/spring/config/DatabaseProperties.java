@@ -1,26 +1,21 @@
 package ru.lexkml.spring.config;
 
-import lombok.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.ConstructorBinding;
 
 import java.util.List;
+import java.util.Map;
 
-@Value
-@ConstructorBinding
-@ConfigurationProperties(prefix = "eb")
-public class DatabaseProperties {
+@ConfigurationProperties(prefix = "db")
+public record DatabaseProperties(String username,
+                                 String password,
+                                 String driver,
+                                 String url,
+                                 String hosts,
+                                 PoolProperties pool,
+                                 List<PoolProperties> pools,
+                                 Map<String, Object> properties) {
 
-    String user;
-    String username;
-    String password;
-    String url;
-    Integer poolSize;
-    List<PoolProperties> pools;
-
-    @Value
-    public static class PoolProperties {
-        Integer size;
-        Integer timeout;
+    public static record PoolProperties(Integer size,
+                                        Integer timeout) {
     }
 }

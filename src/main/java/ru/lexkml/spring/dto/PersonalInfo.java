@@ -2,5 +2,7 @@ package ru.lexkml.spring.dto;
 
 import java.time.LocalDate;
 
-public record PersonalInfo(String firstname, String lastname, LocalDate birthDate) {
+public record PersonalInfo(String firstname,
+                           String lastname,
+                           LocalDate birthDate) {
 }
