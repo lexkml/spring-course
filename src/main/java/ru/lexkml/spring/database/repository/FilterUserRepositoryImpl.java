@@ -1,7 +1,10 @@
 package ru.lexkml.spring.database.repository;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.jdbc.core.JdbcTemplate;
+import ru.lexkml.spring.database.entity.Role;
 import ru.lexkml.spring.database.entity.User;
+import ru.lexkml.spring.dto.PersonalInfo;
 import ru.lexkml.spring.dto.UserFilter;
 
 import javax.persistence.EntityManager;
@@ -11,8 +14,15 @@ import java.util.List;
 
 @RequiredArgsConstructor
 public class FilterUserRepositoryImpl implements FilterUserRepository {
-
+    private static final String FIND_BY_COMPANY_AND_ROLE = """
+            SELECT 
+            firstname, 
+            lastname, 
+            birth_date
+            FROM users
+            """;
     private final EntityManager entityManager;
+    private final JdbcTemplate jdbcTemplate;
 
     @Override
     public List<User> findAllByFilter(UserFilter userFilter) {
@@ -36,5 +46,10 @@ public class FilterUserRepositoryImpl implements FilterUserRepository {
         criteria.where(predicates.toArray(Predicate[]::new));
 
         return entityManager.createQuery(criteria).getResultList();
+    }
+
+    @Override
+    public List<PersonalInfo> findAllByCompanyIdAndRole(Integer companyId, Role role) {
+        return null;
     }
 }
