@@ -4,7 +4,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.server.ResponseStatusException;
 import ru.lexkml.spring.dto.UserCreateEditDto;
 import ru.lexkml.spring.service.UserService;
@@ -32,13 +37,16 @@ public class UserController {
 
     @PostMapping
 //    @ResponseStatus(HttpStatus.CREATED)
-    public String create(UserCreateEditDto dto) {
+    public String create(@Validated UserCreateEditDto dto, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "redirect:/user/login";
+        }
         return "redirect:/users/" + userService.create(dto).getId();
     }
 
     //    @PutMapping("/{id}")
     @PostMapping("/{id}/update")
-    public String update(@PathVariable Long id, UserCreateEditDto dto) {
+    public String update(@PathVariable Long id, @Validated UserCreateEditDto dto) {
         return userService.update(id, dto)
                 .map(it -> "redirect:/users/{id}")
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));

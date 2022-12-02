@@ -33,7 +33,7 @@ import java.util.List;
     attributeNodes = @NamedAttributeNode("company"))
 @Data
 @ToString(exclude = "userChats")
-@EqualsAndHashCode(of = "username")
+@EqualsAndHashCode(callSuper = false, of = "username")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

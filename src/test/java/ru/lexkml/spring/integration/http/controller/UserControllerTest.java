@@ -44,4 +44,20 @@ class UserControllerTest extends IntegrationTestBase {
                         redirectedUrlPattern("/users/{\\d+}")
                 );
     }
+
+    @Test
+    void createFail() throws Exception {
+        mockMvc.perform(post("/users")
+                        .param(username, "test.com") //Not valid email
+                        .param(firstname, "test")
+                        .param(lastname, "test")
+                        .param(role, "ADMIN")
+                        .param(companyId, "1")
+                        .param(birthDade, "2000-01-01")
+                )
+                .andExpectAll(
+                        status().is3xxRedirection(),
+                        redirectedUrl("/user/login")
+                );
+    }
 }
