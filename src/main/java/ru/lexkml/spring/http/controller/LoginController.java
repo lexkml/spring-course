@@ -10,12 +10,13 @@ import ru.lexkml.spring.dto.LoginDto;
 public class LoginController {
 
     @GetMapping("/login")
-    public String loginPage() {
+    public String loginPage(Model model) {
         return "user/login";
     }
 
     @PostMapping("/login")
     public String login(Model model, LoginDto loginDto) {
-        return "user/login";
+//        return "redirect:/login";
+        return "redirect:http://google.com";
     }
 }
