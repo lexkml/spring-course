@@ -1,9 +1,11 @@
 package ru.lexkml.spring.http.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import ru.lexkml.spring.dto.UserCreateEditDto;
 import ru.lexkml.spring.service.UserService;
 
@@ -16,33 +18,39 @@ public class UserController {
 
     @GetMapping
     public String findAll(Model model) {
-//        model.addAttribute("users", userService.findAll());
+        model.addAttribute("users", userService.findAll());
         return "user/users";
     }
 
     @GetMapping("/{id}")
     public String findById(@PathVariable Long id, Model model) {
-//        model.addAttribute("users", userService.findById());
-        return "user/user";
+        return userService.findById(id).map(user -> {
+            model.addAttribute("users", user);
+            return "user/user";
+        }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-//    @PostMapping
-//    public String create(@ModelAttribute UserCreateEditDto dto) {
-//        userService.create(dto)
-//        return "redirect:/users/" + user.getId();
-//    }
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public String create(UserCreateEditDto dto) {
+        return "redirect:/users/" + userService.create(dto).getId();
+    }
 
-//    @PutMapping("/{id}")
+    //    @PutMapping("/{id}")
     @PostMapping("/{id}/update")
     public String update(@PathVariable Long id, UserCreateEditDto dto) {
-//        userService.update(id, dto);
-        return "redirect:/users/{id}";
+        return userService.update(id, dto)
+                .map(it -> "redirect:/users/{id}")
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-//    @DeleteMapping("{id}")
+    //    @DeleteMapping("{id}")
     @PostMapping("{id}/delete")
     public String delete(@PathVariable Long id) {
-//        userService.delete(id);
-        return "redirect:/users";
+        if (!userService.delete(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        } else {
+            return "redirect:/users";
+        }
     }
 }
