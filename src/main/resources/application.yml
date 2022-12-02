@@ -31,9 +31,9 @@ logging:
     path: /
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5433/postgres
+    url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
-    password: pass
+    password: postgres
     driver-class-name: org.postgresql.Driver
   jpa:
     properties.hibernate:

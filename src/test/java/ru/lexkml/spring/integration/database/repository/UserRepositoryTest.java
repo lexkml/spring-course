@@ -24,33 +24,11 @@ class UserRepositoryTest extends IntegrationTestBase {
     private final UserRepository userRepository;
 
     @Test
-    void checkBatch() {
-        var users = userRepository.findAll();
-        userRepository.updateCompanyAndRole(users);
-        System.out.println();
-    }
-
-    @Test
-    void checkJdbcTemplate() {
-        var users = userRepository.findAllByCompanyIdAndRole(1, Role.USER);
-        Assertions.assertThat(users).hasSize(1);
-    }
-
-    @Test
     void checkAuditing() {
         var ivan = userRepository.findById(1L).get();
         ivan.setBirthDate(ivan.getBirthDate().plusYears(1L));
         userRepository.flush();
         System.out.println();
-    }
-
-    @Test
-    void checkCustomImplementation() {
-        UserFilter filter = new UserFilter(
-            null, "ov", LocalDate.now()
-        );
-        var users = userRepository.findAllByFilter(filter);
-        Assertions.assertThat(users).hasSize(4);
     }
 
     @Test
