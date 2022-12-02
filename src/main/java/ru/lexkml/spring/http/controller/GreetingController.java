@@ -1,23 +1,32 @@
 package ru.lexkml.spring.http.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import ru.lexkml.spring.database.entity.Role;
 import ru.lexkml.spring.dto.UserReadDto;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
+import java.util.List;
 
 @Controller
 @RequestMapping("/api/v1")
 @SessionAttributes({"user"})
 public class GreetingController {
 
+    @ModelAttribute("roles")
+    public List<Role> roles() {
+        return Arrays.asList(Role.values());
+    }
+
     @GetMapping("/hello")
 
-    public ModelAndView hello(ModelAndView modelAndView, HttpServletRequest request) {
-        modelAndView.setViewName("greeting/hello");
-        modelAndView.addObject("user", new UserReadDto(1L, "Ivan"));
-        return modelAndView;
+    public String hello(Model model, HttpServletRequest request,
+                        @ModelAttribute("userReadDto") UserReadDto userReadDto) {
+        model.addAttribute("user", new UserReadDto(1L, "Ivan"));
+        return "greeting/hello";
     }
 
     @GetMapping("/hello/{id}")
@@ -36,8 +45,7 @@ public class GreetingController {
     }
 
     @GetMapping("/bye")
-    public ModelAndView bye(ModelAndView modelAndView, @SessionAttribute("user") UserReadDto userReadDto) {
-        modelAndView.setViewName("greeting/bye");
-        return modelAndView;
+    public String bye(@SessionAttribute("user") UserReadDto userReadDto) {
+        return "greeting/bye";
     }
 }
