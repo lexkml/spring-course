@@ -14,6 +14,10 @@ repositories {
     mavenCentral()
 }
 
+sourceSets {
+    main.java.srcDirs += "$buildDir/generated/sources/annotationProcessor/java/main"
+}
+
 configurations {
     querydsl.extendsFrom annotationProcessor, implementation, compilyOnly, runtimeOnly
 }
@@ -22,15 +26,16 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation "org.springdoc:springdoc-openapi-ui:${versions.springdoc}"
+    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
     implementation 'org.postgresql:postgresql'
     implementation 'org.springframework.data:spring-data-envers'
     implementation 'com.querydsl:querydsl-jpa'
     implementation 'org.liquibase:liquibase-core'
-    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
 
     annotationProcessor 'com.querydsl:querydsl-apt'
-
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation "org.testcontainers:postgresql:${versions.testcontainers}"
@@ -41,6 +46,7 @@ querydsl {
     library = "com.querydsl:querydsl-apt:${versions.querydsl}"
     querydslSourcesDir = "$buildDir/generated/sources/annotationProcessor/java/main"
 }
+initQuerydslSourcesDir.dependsOn clean
 
 compileQuerydsl {
     options.annotationProcessorPath = configurations.querydsl

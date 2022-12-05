@@ -1,13 +1,13 @@
 --liquibase formatted sql
 
---changeset kamelchukov:1
+--changeset dmatveyenka:1
 CREATE TABLE IF NOT EXISTS revision
 (
     id SERIAL PRIMARY KEY ,
     timestamp BIGINT NOT NULL
 );
 
---changeset kamelchukov:2
+--changeset dmatveyenka:2
 CREATE TABLE IF NOT EXISTS users_aud
 (
     id BIGINT,
@@ -19,4 +19,4 @@ CREATE TABLE IF NOT EXISTS users_aud
     lastname VARCHAR(64),
     role VARCHAR(32),
     company_id INT
-);
+    );
